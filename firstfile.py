@@ -20,6 +20,8 @@ def main():
         ("What is Spider-Man's real name? ", "peter")
     ]
 
+    score = 0
+
     random.shuffle(questions)
 
     # Introduction
@@ -38,10 +40,17 @@ def main():
         time.sleep(2)
         # See if the user's correct
         if user_answer == question[1]:
-            print("YOU GOT IT RIGHT!")
+            print("YOU GOT IT RIGHT!\n")
+            score += 1
         else:
             print("Sorry, you didn't get it right.")
-            print(f"The answer was {question[1]}.")
+            print(f"The answer was {question[1].capitalize()}.\n")
+
+    time.sleep(2)
+    if score == 1:
+        print(f"You got 1 question correct.")
+    else:
+        print(f"You got {score} questions correct.")
 
 
 if __name__ == "__main__":
