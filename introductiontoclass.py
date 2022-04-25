@@ -32,6 +32,25 @@ class Cat(Animal):
         print(f"---{self.name} purrs as it breathes---")
 
 
+class Dog(Animal):
+    def __init__(self, name: str):
+        super().__init__(name)
+
+        self.loyal_friend = True
+
+        print("Created a new Dog!")
+
+    def bark(self):
+        print("*Barks*")
+        print(f"My name is {self.name}.")
+
+
+class Tabby(Cat):
+    def sleep(self):
+        print(f"{self.name} is sleeping...")
+
+
+
 # Create a new Animal object
 fred = Animal("Fred")  # this is a call to __init__()
 
@@ -60,3 +79,12 @@ chester = Cat("Chester")
 chester.breathe()
 chester.meow()
 print(type(chester))
+
+# Create a new Dog object
+dog = Dog("Dogman")
+dog.breathe()
+dog.bark()
+
+kitten = Tabby("Tabs")
+kitten.breathe()
+kitten.meow()
