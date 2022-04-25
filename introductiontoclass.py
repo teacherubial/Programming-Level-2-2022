@@ -17,6 +17,21 @@ class Animal:
         print(f"---{self.name} breathes in and out ---")
 
 
+class Cat(Animal):
+    def __init__(self, name: str):
+        super().__init__(name)  # superclass constructor
+
+        print("Created a new Cat!")
+        self.sassy = True
+
+    def meow(self):
+        print("Meow. 🐱")
+        print(f"My name is {self.name}.")
+
+    def breathe(self):
+        print(f"---{self.name} purrs as it breathes---")
+
+
 # Create a new Animal object
 fred = Animal("Fred")  # this is a call to __init__()
 
@@ -38,3 +53,10 @@ fred.breathe()
 
 fran = Animal("Fran")
 fran.breathe()
+# fran.meow()  # this will break
+
+# Create a new Cat object
+chester = Cat("Chester")
+chester.breathe()
+chester.meow()
+print(type(chester))
