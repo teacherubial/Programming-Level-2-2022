@@ -62,10 +62,10 @@ fred.colour = "Blue"
 fred.age = 13
 fred.weight = 5
 
-print(f"Fred's colour: {fred.colour}") # Access properties
+print(f"Fred's colour: {fred.colour}")  # Access properties
 
 fred.colour = "Red"
-print(f"Fred's colour: {fred.colour}") # Access properties
+print(f"Fred's colour: {fred.colour}")  # Access properties
 
 # Use the breathe() method on fred
 fred.breathe()
