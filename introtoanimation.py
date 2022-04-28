@@ -24,6 +24,12 @@ class Dvdlogo(pygame.sprite.Sprite):
         # Default (x, y) is (0, 0)
         self.rect = self.image.get_rect()
 
+        self.xvel = 1       # 1 pixel per 1/60th second
+
+    def update(self):
+        """Change the x coordinate based on the xvel"""
+        self.rect.x += self.xvel
+
 
 def main():
     pygame.init()
@@ -58,6 +64,11 @@ def main():
                 done = True
 
         # ----- LOGIC
+
+
+        # Update all sprites
+        all_sprites_group.update()
+        print(dvd_logo.rect.x)
 
         # ----- RENDER
         screen.fill(WHITE)
