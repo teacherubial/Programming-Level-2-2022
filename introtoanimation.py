@@ -16,6 +16,11 @@ class Dvdlogo(pygame.sprite.Sprite):
         super().__init__()
 
         self.image = pygame.image.load("./assets/dvd_logo.png")
+        # Transform the image to be smaller
+        self.image = pygame.transform.scale(
+            self.image,
+            (200, 115),
+        )
         # Default (x, y) is (0, 0)
         self.rect = self.image.get_rect()
 
