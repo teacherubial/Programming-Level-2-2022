@@ -1,5 +1,6 @@
 # snowscape.py
 
+import random
 import pygame
 
 # ----- CONSTANTS
@@ -20,13 +21,15 @@ class Snow(pygame.sprite.Sprite):
         super().__init__()
 
         self.image = pygame.Surface([width, width])
+
         # fill that image with an actual shape
         pygame.draw.circle(
             self.image,
             WHITE,
-            (width // 2, width // 2),  # draw in the middle
+            (width // 2, width // 2),   # draw in the middle
             width // 2
         )
+        self.image.set_colorkey(BLACK)  # transparency
 
         self.rect = self.image.get_rect()
 
@@ -43,16 +46,24 @@ def main():
     done = False
     clock = pygame.time.Clock()
 
-    # Create a new snow object
-    snow = Snow(10)
-    # TODO: Test
-    snow.rect.center = (WIDTH // 2, HEIGHT // 2)
+    num_snow = 100
 
     # Create a snow sprites group
     snow_sprites = pygame.sprite.Group()
 
-    # Add the snow object to the snow sprites group
-    snow_sprites.add(snow)
+    # Create num_snow snowflakes
+    for i in range(num_snow):
+        snow = Snow(10)
+
+        x, y = (
+            random.randrange(0, WIDTH),
+            random.randrange(0, HEIGHT)
+        )
+
+        snow.rect.center = (x, y)
+
+        # Add the snow object to the snow sprites group
+        snow_sprites.add(snow)
 
     # ----- MAIN LOOP
     while not done:
