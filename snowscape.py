@@ -33,6 +33,18 @@ class Snow(pygame.sprite.Sprite):
 
         self.rect = self.image.get_rect()
 
+        self.yvel = 3
+
+    def update(self):
+        """Change the ycoord by yvel"""
+        self.rect.y += self.yvel
+
+        # Recycle snow -> reset its position to the top
+        if self.rect.y > HEIGHT:
+            self.rect.x = random.randrange(0, WIDTH)
+            self.rect.y = random.randrange(-50, -10)
+
+
 
 def main():
     pygame.init()
@@ -55,6 +67,7 @@ def main():
     for i in range(num_snow):
         snow = Snow(10)
 
+        # Random placement
         x, y = (
             random.randrange(0, WIDTH),
             random.randrange(0, HEIGHT)
@@ -73,6 +86,7 @@ def main():
                 done = True
 
         # ----- LOGIC
+        snow_sprites.update()
 
         # ----- RENDER
         screen.fill(BLACK)
