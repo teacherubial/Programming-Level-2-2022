@@ -1,4 +1,5 @@
 import pygame
+import random
 
 # ----- CONSTANTS
 BLACK = (0, 0, 0)
@@ -24,11 +25,27 @@ class Dvdlogo(pygame.sprite.Sprite):
         # Default (x, y) is (0, 0)
         self.rect = self.image.get_rect()
 
-        self.xvel = 1       # 1 pixel per 1/60th second
+        # Choose a random direction
+        self.xvel = random.choice([-5, -3, 3, 5])       # 1 pixel per 1/60th second
+        self.yvel = random.choice([-5, -3, 3, 5])
 
     def update(self):
         """Change the x coordinate based on the xvel"""
         self.rect.x += self.xvel
+        self.rect.y += self.yvel
+
+        if self.rect.right > WIDTH:
+            self.rect.right = WIDTH
+            self.xvel *= -1
+        if self.rect.left < 0:
+            self.rect.left = 0
+            self.xvel *= -1
+        if self.rect.top < 0:
+            self.rect.top = 0
+            self.yvel *= -1
+        if self.rect.bottom > HEIGHT:
+            self.rect.bottom = HEIGHT
+            self.yvel *= -1
 
 
 def main():
@@ -54,8 +71,6 @@ def main():
     # Add the Dvdlogo sprite to the all_sprites_group
     all_sprites_group.add(dvd_logo)
 
-
-
     # ----- MAIN LOOP
     while not done:
         # -- Event Handler
@@ -64,7 +79,6 @@ def main():
                 done = True
 
         # ----- LOGIC
-
 
         # Update all sprites
         all_sprites_group.update()
