@@ -62,20 +62,22 @@ def main():
 
     # Create a snow sprites group
     snow_sprites = pygame.sprite.Group()
+    # snow_sprites_farther = pygame.sprite.Group()
 
     # Create num_snow snowflakes
     for i in range(num_snow):
         snow = Snow(10)
 
         # Random placement
-        x, y = (
-            random.randrange(0, WIDTH),
-            random.randrange(0, HEIGHT)
-        )
-
-        snow.rect.center = (x, y)
+        snow.rect.center = random_coords()
 
         # Add the snow object to the snow sprites group
+        snow_sprites.add(snow)
+
+        # Create smaller snow
+        snow = Snow(random.choice([2, 5]))
+        snow.rect.center = random_coords()
+        snow.yvel = random.choice([1, 2])
         snow_sprites.add(snow)
 
     # ----- MAIN LOOP
@@ -99,6 +101,14 @@ def main():
         clock.tick(60)
 
     pygame.quit()
+
+
+def random_coords():
+    x, y = (
+        random.randrange(0, WIDTH),
+        random.randrange(0, HEIGHT)
+    )
+    return x, y
 
 
 if __name__ == "__main__":
