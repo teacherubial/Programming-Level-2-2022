@@ -18,7 +18,8 @@ class Player(pygame.sprite.Sprite):
 
         # Image
         self.image = pygame.image.load("./assets/mario.png")
-        self.image = pygame.transform.scale(self.image, (19, 19))   # scale
+        self.image = pygame.transform.scale(self.image, (38, 38))   # scale
+        # self.image.set_colorkey((WHITE))      # set transparency
 
         # Rect
         self.rect = self.image.get_rect()
@@ -35,12 +36,18 @@ def main():
     size = (WIDTH, HEIGHT)
     screen = pygame.display.set_mode(size)
     pygame.display.set_caption(TITLE)
+    pygame.mouse.set_visible(False)     # make cursor invisible
 
     # ----- LOCAL VARIABLES
     done = False
     clock = pygame.time.Clock()
 
+    # Create sprite groups
+    all_sprites_group = pygame.sprite.Group()
 
+    # Create sprites to fill groups
+    player = Player()
+    all_sprites_group.add(player)
 
     # ----- MAIN LOOP
     while not done:
@@ -50,9 +57,11 @@ def main():
                 done = True
 
         # ----- LOGIC
+        all_sprites_group.update()
 
         # ----- RENDER
         screen.fill(BLACK)
+        all_sprites_group.draw(screen)
 
         # ----- UPDATE DISPLAY
         pygame.display.flip()
