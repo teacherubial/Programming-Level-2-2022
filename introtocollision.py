@@ -1,5 +1,6 @@
 # introtocollision.py
 
+import random
 import pygame
 
 # ----- CONSTANTS
@@ -29,6 +30,24 @@ class Player(pygame.sprite.Sprite):
         self.rect.center = pygame.mouse.get_pos()
 
 
+class Treasure(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+
+        # Image
+        self.image = pygame.image.load("./assets/coin.png")
+
+        # Rect
+        self.rect = self.image.get_rect()
+        self.rect.center = random_coords()      # random location
+
+
+def random_coords() -> list:
+    """Returns a random x, y coord between
+    0 to WIDTH and 0 to HEIGHT respectively"""
+    return random.randrange(0, WIDTH), random.randrange(0, HEIGHT)
+
+
 def main():
     pygame.init()
 
@@ -41,11 +60,21 @@ def main():
     # ----- LOCAL VARIABLES
     done = False
     clock = pygame.time.Clock()
+    num_treasure = 10
 
     # Create sprite groups
     all_sprites_group = pygame.sprite.Group()
+    treasure_sprites_group = pygame.sprite.Group()
 
     # Create sprites to fill groups
+    # Create treasure sprites
+    for i in range(num_treasure):
+        treasure = Treasure()
+
+        # Add it to BOTH lists: all_sprites_group and treasure_sprites_group
+        all_sprites_group.add(treasure)
+        treasure_sprites_group.add(treasure)
+
     player = Player()
     all_sprites_group.add(player)
 
