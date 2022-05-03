@@ -62,6 +62,8 @@ def main():
     clock = pygame.time.Clock()
     num_treasure = 10
 
+    coin_sound = pygame.mixer.Sound("./assets/coinsound.ogg")
+
     # Create sprite groups
     all_sprites_group = pygame.sprite.Group()
     treasure_sprites_group = pygame.sprite.Group()
@@ -87,6 +89,27 @@ def main():
 
         # ----- LOGIC
         all_sprites_group.update()
+
+        # Deal with collision between player and treasure sprites
+        #  PLAYER collides with any sprite from TREASURE_SPRITE_GROUP
+        collided_treasure = pygame.sprite.spritecollide(
+            player,
+            treasure_sprites_group,
+            dokill=True
+        )
+
+        if len(collided_treasure) > 0:
+            coin_sound.play()
+
+        # Iterate through all collided treasure
+        for treasure in collided_treasure:
+            print(f"x: {treasure.rect.x}")
+            print(f"y: {treasure.rect.y}")
+
+            # Replace the treasure
+            treasure = Treasure()
+            all_sprites_group.add(treasure)
+            treasure_sprites_group.add(treasure)
 
         # ----- RENDER
         screen.fill(BLACK)
