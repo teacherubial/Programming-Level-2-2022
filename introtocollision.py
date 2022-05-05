@@ -61,6 +61,8 @@ def main():
     done = False
     clock = pygame.time.Clock()
     num_treasure = 10
+    score = 0
+    default_font = pygame.font.SysFont("Menlo", 20)
 
     coin_sound = pygame.mixer.Sound("./assets/coinsound.ogg")
 
@@ -99,7 +101,8 @@ def main():
         )
 
         if len(collided_treasure) > 0:
-            coin_sound.play()
+            # coin_sound.play()
+            pass
 
         # Iterate through all collided treasure
         for treasure in collided_treasure:
@@ -111,9 +114,16 @@ def main():
             all_sprites_group.add(treasure)
             treasure_sprites_group.add(treasure)
 
+            # Increase score
+            score += 1
+
         # ----- RENDER
         screen.fill(BLACK)
         all_sprites_group.draw(screen)
+
+        # Render score
+        score_surf = default_font.render(f"Score: {score}", True, WHITE)
+        screen.blit(score_surf, (10, 10))
 
         # ----- UPDATE DISPLAY
         pygame.display.flip()
